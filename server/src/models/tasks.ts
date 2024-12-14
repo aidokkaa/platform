@@ -1,21 +1,20 @@
 import { pool } from "../db";
-export interface ProjectData {
-    name:string;
+export interface TaskData {
+    title:string;
     description?:string;
-    start_date?:Date;
-    end_date?:Date;
+    due_date?:Date;
     status:string;
     user_id:number;
 }
-export const insertProject = async(data:ProjectData)=>{
-    const {name, description, start_date, end_date, status, user_id}=data;
+export const insertTask = async(data:TaskData)=>{
+    const {title, description, due_date, status, user_id}=data;
     const query = `
-    INSERT INTO public.projects 
-    (name, description, start_date, end_date, status, user_id)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO public.tasks 
+    (title, description, due_date, status, user_id)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *
   `;
-  const values = [name, description, start_date, end_date, status, user_id];
+  const values = [title, description, due_date, status, user_id];
   try{
    const result = await pool.query(query,values);
   return result.rows[0];
@@ -23,8 +22,8 @@ export const insertProject = async(data:ProjectData)=>{
    console.log(error+ "insert error")
   }
 };
-export const getProjectById = async (id:number)=>{
-  const query='SELECT * FROM projects WHERE id = $1'
+export const getTaskById = async (id:number)=>{
+  const query='SELECT * FROM tasks WHERE id = $1'
   try{
     const result = await pool.query(query,[id]);
     return result.rows[0];
@@ -34,43 +33,42 @@ export const getProjectById = async (id:number)=>{
   }
 }
 
-export const getProjects = async () => {
-  const query = 'SELECT * FROM projects';
+export const getTasks = async () => {
+  const query = 'SELECT * FROM tasks';
   try {
     const result = await pool.query(query);
     if (result.rows.length === 0) {
-      console.log('No projects found');
+      console.log('No tasks found');
       return []; 
     }
     console.log(result.rows);
     return result.rows; 
   } catch (err) {
-    console.error('Error fetching projects:', err);
+    console.error('Error fetching tasks:', err);
     throw err; 
   }
 };
-export const updateProject = async (id: number, data: Partial<ProjectData>) => {
-  const { name, description, start_date, end_date, status, user_id } = data;
+export const updateTask = async (id: number, data: Partial<TaskData>) => {
+  const { title, description, due_date, status, user_id } = data;
 
   const query = `
-    UPDATE public.projects 
+    UPDATE public.tasks 
     SET 
       name = COALESCE($1, name), 
       description = COALESCE($2, description), 
-      start_date = COALESCE($3, start_date), 
-      end_date = COALESCE($4, end_date), 
+      due_date = COALESCE($3, due_date), 
       status = COALESCE($5, status), 
       user_id = COALESCE($6, user_id)
     WHERE id = $7
     RETURNING *;
   `;
 
-  const values = [name, description, start_date, end_date, status, user_id, id];
+  const values = [title, description,due_date, status, user_id, id];
 
   try {
     const result = await pool.query(query, values);
     if (result.rows.length === 0) {
-      throw new Error('Project not found'); // Если проект с таким ID не найден
+      throw new Error('Task not found'); // Если проект с таким ID не найден
     }
     return result.rows[0]; // Возвращаем обновленный проект
   } catch (error) {

@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { pool } from './db';
 import userRouter from './routes/auth'
-import projectRoutes from './routes/projects';
+import taskRoutes from './routes/tasks';
 import filterRoutes from './routes/filterRoutes'
 
 dotenv.config()
@@ -19,7 +19,7 @@ pool.connect()
         console.error('Ошибка подключения к базе данных:', err);
     });
 app.use('/api/users',userRouter);
-app.use('/api/projects', projectRoutes);
+app.use('/api/tasks', taskRoutes);
 app.use('/api/filterprojects', filterRoutes);
 
 app.listen(PORT, () => {

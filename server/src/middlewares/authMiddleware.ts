@@ -7,18 +7,17 @@ export const verifyToken = (req:Request,res:Response,next:NextFunction)=>{
     if(!token){
         return res.status(403).json({error:'No token provided!'})
     }
-//     jwt.verify(token,JWT_SECRET,(err,decoded)=>{
-//         if(err){
-//          return res.status(401).json({ error: 'Invalid or expired token' });
-//         }
-//         req.user = decoded;
-//         next();
-//     })
-// }
-// export const verifyAdmin = (req: Request, res: Response, next: NextFunction) => {
-//     if (req.user.role !== 'admin') {
-//         return res.status(403).json({ error: 'Only admins can do it!' });
-//     }
-//     next();
-// };
+    jwt.verify(token,JWT_SECRET,(err,decoded)=>{
+        if(err){
+         return res.status(401).json({ error: 'Invalid or expired token' });
+        }
+        req.user = decoded;
+        next();
+    })
 }
+export const verifyAdmin = (req: Request, res: Response, next: NextFunction) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ error: 'Only admins can do it!' });
+    }
+    next();
+};
