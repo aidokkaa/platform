@@ -68,12 +68,41 @@ export const updateTask = async (id: number, data: Partial<TaskData>) => {
   try {
     const result = await pool.query(query, values);
     if (result.rows.length === 0) {
-      throw new Error('Task not found'); // Если проект с таким ID не найден
+      throw new Error('Task not found'); 
     }
-    return result.rows[0]; // Возвращаем обновленный проект
+    return result.rows[0]; 
   } catch (error) {
     console.error(error);
-    throw error; // Пробрасываем ошибку для обработки в контроллере
+    throw error; 
   }
 };
+export const getAssignTaskById = async (userId:number)=>{
+  const query = `
+  SELECT tasks.*
+  FROM tasks
+  JOIN task_assignments ON tasks.id = task_assignments.task_id
+  WHERE task_assignments.user_id = $1;
+`;
+const result = await pool.query(query, [userId]);
+return result.rows;
+}
+export const getAssignTasks=async ()=>{
+  const query = 'SELECT tasks.*FROM tasks JOIN task_assignments ON tasks.id = task_assignments.task_id';
+  try {
+    const result = await pool.query(query);
+    if (result.rows.length === 0) {
+      console.log('No tasks found');
+      return []; 
+    }
+    console.log(result.rows);
+    return result.rows; 
+  } catch (err) {
+    console.error('Error fetching tasks:', err);
+    throw err; 
+  }
+}
+
+
+
+
 

@@ -1,4 +1,4 @@
-import { insertTask,TaskData,getTaskById,getTasks,updateTask } from "../models/tasks";
+import { insertTask,TaskData,getTaskById,getTasks,updateTask,getAssignTaskById,getAssignTasks } from "../models/tasks";
 import { Request,Response } from "express";
 import { pool } from '../db';
 export const createTask = async(req:Request,res:Response)=>{
@@ -90,4 +90,19 @@ export const assignTaskToUser = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+// taskController.ts (где эта функция должна быть определена)
+export const getTaskForUser = async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.userId);
+  const tasks = await getAssignTaskById(userId); // Получаем задачи для пользователя
+  if (tasks.length === 0) {
+    return res.status(404).json({ message: 'No tasks found for this user' });
+  }
+  return res.status(200).json({ tasks });
+};
+export const assignTasks=async (req: Request, res: Response)=>{
+  const  tasks = await getAssignTasks();
+   res.status(200).json(tasks)
+}
+
+
 

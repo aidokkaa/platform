@@ -53,7 +53,7 @@ export const loginUser = async (req: Request, res: Response) => {
     // Генерация токена с ролью из базы данных
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
-    // Отправляем токен и данные пользователя
+
     return res.status(200).json({ token, user });
   } catch (err) {
     console.error('Error during login:', err);
@@ -61,19 +61,6 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-  // const roleQuery = `
-      //     SELECT r.name AS role
-      //     FROM roles r
-      //     INNER JOIN project_users pu ON r.id = pu.role_id
-      //     WHERE pu.user_id = $1
-      // `;
-      // const { rows } = await pool.query(roleQuery, [user.id]);
-
-      // if (rows.length === 0) {
-      //     return res.status(403).json({ error: 'Role not assigned to user' });
-      // }
-
-      // const role = rows[0].role;
 
 
 
