@@ -1,0 +1,81 @@
+$header-text-color: #0277bd;
+.header {
+    // background-color: #028/* Цвет фона */
+    color: $header-text-color; 
+    width: 100%;           /* Цвет текста */
+    padding: 20px 0;         /* Отступы сверху и снизу */
+    position: sticky;        /* Фиксированное положение */
+    top: 0;                  /* Привязка к верхней части */
+    z-index: 1000;           /* Убедитесь, что шапка поверх других элементов */
+  
+    .container {
+      display: flex;                  /* Используем flexbox для размещения элементов */
+      justify-content: space-between; /* Распределение элементов по ширине */
+      align-items: center;            /* Выравнивание по центру по вертикали */
+      max-width: 1200px;              /* Максимальная ширина */
+      margin: 0 auto;                 /* Центрирование по горизонтали */
+      padding: 0 20px;                /* Отступы слева и справа */
+    }
+  
+    .logo img {
+      height: 40px; /* Размер логотипа */
+    }
+  
+    .nav ul {
+      list-style: none;  /* Убираем маркеры списка */
+      display: flex;     /* Располагаем элементы горизонтально */
+      gap: 20px;         /* Промежуток между пунктами */
+    }
+  
+    .nav ul li {
+      display: inline;   /* Выставляем элементы как строки */
+    }
+  
+    .nav ul li a {
+      text-decoration: none; /* Убираем подчеркивание у ссылок */
+      color:  #0277bd;          /* Цвет текста ссылок */
+      font-weight: bold;     /* Жирный шрифт */
+      font-size: 16px;       /* Размер шрифта */
+      transition: color 0.3s ease; /* Плавное изменение цвета при наведении */
+    }
+  
+    .nav ul li a:hover {
+      color: #4CAF50; /* Изменение цвета при наведении */
+    }
+  
+    .auth-buttons {
+      display: flex;    /* Располагаем кнопки в ряд */
+      gap: 10px;         /* Промежуток между кнопками */
+    }
+  
+    .btn {
+      padding: 10px 20px;       /* Отступы внутри кнопки */
+      border-radius: 5px;       /* Скругленные углы */
+      font-weight: bold;        /* Жирный шрифт */
+      text-decoration: none;    /* Убираем подчеркивание */
+      transition: background-color 0.3s ease, opacity 0.3s ease; /* Плавные переходы */
+    }
+  
+    .btn-login {
+      background-color: #4CAF50; /* Зеленая кнопка для входа */
+      color: white;               /* Белый текст */
+    }
+  
+    .btn-register {
+      background-color: #007BFF; /* Синяя кнопка для регистрации */
+      color: white;               /* Белый текст */
+    }
+  
+    .btn:hover {
+      opacity: 0.8;              /* Немного прозрачности при наведении */
+    }
+  
+    .btn-login:hover {
+      background-color: #45a049; /* Темно-зеленый при наведении на кнопку входа */
+    }
+  
+    .btn-register:hover {
+      background-color: #0056b3; /* Темно-синий при наведении на кнопку регистрации */
+    }
+  }
+  

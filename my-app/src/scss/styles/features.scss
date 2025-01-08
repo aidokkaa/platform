@@ -1,0 +1,74 @@
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 50px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  .img{
+    width: 100vw;
+  }
+  &__header {
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 2rem;
+    color: #333;
+    font-weight: bold;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение элементов */
+    align-items: center;
+    // flex-wrap: wrap; /* Чтобы элементы переходили на новую строку при нехватке места */
+    gap: 20px; /* Отступы между элементами */
+  /* Использовать доступное пространство */
+    width: 900px; /* Ограничение ширины списка */
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column; /* Для иконки и текста */
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 170px; /* Фиксированная ширина для равномерного размера */
+    height: 140px; /* Фиксированная высота */
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+
+    &.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    &__icon {
+      font-size: 2rem;
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: #333;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 5px;
+      text-align: center;
+    }
+  }
+}
